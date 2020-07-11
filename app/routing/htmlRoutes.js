@@ -3,7 +3,7 @@ module.exports = (app, path)=> {
         res.sendFile(path.resolve("./app/public/survey.html"));
     });
     
-    app.get('*',(req, res)=>{
+    app.get('/',(req, res)=>{
         res.sendFile(path.resolve("./app/public/home.html"));
     });
 }
