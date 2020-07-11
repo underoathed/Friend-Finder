@@ -26,6 +26,7 @@ module.exports = (app)=>{
     });
     
     app.post('/api/friends', (req, res)=>{
+        console.log("Posted");
         var userData = req.body;
         var index = findMatch(userData.scores);
         friendsData.push(req.body);

@@ -159,6 +159,7 @@
 
     <script type="text/javascript">
         $('#submit').on('click', (event) => {
+            console.log("Button  has been clicked");
             event.preventDefault();
 
             validateForm = () => {
@@ -178,6 +179,7 @@
             }
 
             if (validateForm()) {
+                console.log("Invalidating form");
                 var userData = {
                     name: $('#name').val(),
                     photo: $('#photo').val(),
@@ -194,21 +196,29 @@
                         $('#q10').val(),
                     ]
                 };
-
+                console.log("Attempting to reach Ajax");
                 $.ajax({
                     method: "POST",
-                    url: "/api/friends",
+                    url: "http://localhost:3000/api/friends",
+                    crossDomain: true,
                     headers: {
                         "Accept": "application/json",
                         "Content-Type": "application/json"
                     },
-                    data: JSON.stringify(userData)
+                    data: JSON.stringify(userData),
+                    error: function(req, err){
+                        console.log(err);
+                        console.log(req);
+                    }
                 }).then(data => {
                     console.log(data);
                     $("#match-name").text(data.name);
                     $("#match-img").attr("src", data.photo);
                     $("#results-modal").modal("toggle");
-                });
+                }).fail(function(err){
+                    console.error(err);
+                })
+                
             }
             else {
                 console.log("Please fill out all fields");
