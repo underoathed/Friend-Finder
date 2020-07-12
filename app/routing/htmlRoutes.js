@@ -4,6 +4,6 @@ module.exports = (app, path)=> {
     });
     
     app.get('*',(req, res)=>{
-        res.sendFile(("./app/public/home.html"));
+        res.sendFile(path.resolve("./app/public/home.html"));
     });
 }
